@@ -58,8 +58,8 @@ Le projet se basera principalement sur une carte interactive de la Suisse qui ve
 _Qui d'autre sur le web ou dans la recherche a utilisé ces données ? Dans quel but ?_
 
 Les services de transports tels que :
-- [CFF](https://www.sbb.ch/)
-- [BLS](https://www.bls.ch/)
-- [FAIRTIQ](https://fairtiq.com/)
-- [Carte de réseau infrastructure ferroviaire](https://maps.trafimage.ch/)
+- [CFF](https://www.sbb.ch/) : Informations sur le traffic féroviaire à destination des usagés
+- [BLS](https://www.bls.ch/) : Informations sur le traffic féroviaire à destination des usagés
+- [FAIRTIQ](https://fairtiq.com/) : Application de billet calculé par points géographiques en fonction du trajet effectué
+- [Carte de réseau infrastructure ferroviaire](https://maps.trafimage.ch/) : Représentation sous forme de carte de l'infrastructure féroviaire
 
