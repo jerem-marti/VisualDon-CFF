@@ -22,11 +22,31 @@ _Description : Comment sont structurées les données ? Parler du format, des at
 
 Afin de créer mon projet de scrollytelling, je me suis basée sur deux "type" de données. Premièrement il y a les données concernant le traffic ferroviaire qui concerne les horaires, trajets, etc. Deuxièmement, des données concernant les services annexes et nécessaire à l'exploitation des trains tels que les rails, les gares, etc.
 
-### Données du traffic féroviaire
+### Données du traffic féroviaire suisse
 Opentransportdata met à disposition deux sources de données concernat le traffique féroviaire suisse.
 - GTFS _(General Transit Feed Specification)_
 - GTFS-RT _(Realtime)_
 
+GTFS est une norme ouverte qui permet de représenter de manière cohérente les horaires et les informations géographiques des services de transport public. Elle est utilisée par les agences de transport pour publier leurs données de transport, ce qui permet ensuite aux développeurs d'applications de créer des outils de navigation, des horaires et des services de planification de trajets pour les usagers. GTFS définit un format spécifique pour les données, habituellement sous forme de fichiers CSV zippés, comprenant des informations telles que les arrêts, les trajets, les horaires et d'autres détails opérationnels.
+
+GTFS-Realtime, quant à lui, est une extension du GTFS qui fournit des informations en temps réel sur le transport public, comme les retards, les annulations ou les modifications temporaires des itinéraires. Il utilise un format basé sur le protocole Protocol Buffers de Google, qui est plus léger et plus rapide à analyser que le format CSV. GTFS-RT permet aux utilisateurs d'accéder à des informations à jour sur l'état du réseau de transport, améliorant ainsi la planification des trajets et l'expérience globale des usagers du transport public.
+
+**Liens** : 
+- https://gtfs.org/
+- https://opentransportdata.swiss/fr/dataset/timetable-2024-gtfs2020
+
+**Accès aux données** :
+Les données live (GTFS-RT) sont disponible via une API. Cependant, il faut être identifié avec un Token afin d'y avoir accès. Voici le lien d'inscription : https://opentransportdata.swiss/en/register/
+LEs informations des tarifs d'accès et des conditions sont accessibles via : https://opentransportdata.swiss/en/terms-of-use/
+
+### Données du annexes au traffic féroviaire suisse
+Les données annexes ont été choisi en fonction du storytelling. Nous pouvons y retrouver les datasets suivants :
+- [Passage à niveau CFF](https://data.sbb.ch/explore/dataset/bahnubergang/information/)
+- [Réseau des lignes CFF](https://data.sbb.ch/explore/dataset/linie/)
+- [Nombre d’usagers de la gare CFF](https://data.sbb.ch/explore/dataset/anzahl-sbb-bahnhofbenutzer/)
+- [Ligne (graphique)](https://data.sbb.ch/explore/dataset/linie-mit-polygon/)
+- [Abonnement général/abonnement demi-tarif – avec données sur la population](https://data.sbb.ch/explore/dataset/generalabo-halbtax-mit-bevolkerungsdaten/)
+- [Images historiques de gares ferroviaires](https://data.sbb.ch/explore/dataset/historische-bahnhofbilder/)
 
 
 - But: qu'est-ce que vous voulez découvrir ? Des tendances ? Vous voulez explorer ou expliquer?
