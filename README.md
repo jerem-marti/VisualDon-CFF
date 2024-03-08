@@ -37,7 +37,7 @@ live (GTFS-RT) sont disponibles via une API. Cependant, il est nécessaire d'êt
 
 Les informations concernant les tarifs d'accès et les conditions sont accessibles via : https://opentransportdata.swiss/en/terms-of-use/
 
-### Données du annexes au traffic féroviaire suisse
+### Données annexes au traffic féroviaire suisse
 Les données annexes ont été choisies en fonction du storytelling. Nous pouvons y retrouver les datasets suivants :
 - [Passage à niveau CFF](https://data.sbb.ch/explore/dataset/bahnubergang/information/)
 - [Réseau des lignes CFF](https://data.sbb.ch/explore/dataset/linie/)
