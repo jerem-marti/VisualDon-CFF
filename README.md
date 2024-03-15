@@ -54,6 +54,12 @@ Le but du projet est de mettre en exergue l'aspect gargantuesque des Chemins de 
 
 Le projet se basera principalement sur une carte interactive de la Suisse qui verra les informations changer en fonction du défilement de l'utilisateur. Le défi principal est d'afficher les trains en temps réel sur la carte puis d'agrémenter l'expérience avec diverses informations concernant l'exploitation des trains.
 
+## Wireframe
+Afin de conceptualiser le projet, un wireframe à été réalisé sur Figma. Il sera un guide pour la création programmatique du projet.
+
+- [Board Figma](https://www.figma.com/file/t4qE9l2qB8bEzUYkk3uKyR/Wireframe?type=design&node-id=0%3A1&mode=design&t=NpGxhIR3UM60FR7E-1)
+- [Prototype Figma](https://www.figma.com/proto/t4qE9l2qB8bEzUYkk3uKyR/Wireframe?page-id=0%3A1&type=design&node-id=13-2600&viewport=369%2C454%2C0.39&t=FwHd5mDZj7SWNnQ4-1&scaling=scale-down&mode=design)
+
 ## Références
 _Qui d'autre sur le web ou dans la recherche a utilisé ces données ? Dans quel but ?_
 
