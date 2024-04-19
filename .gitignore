@@ -1,0 +1,8 @@
+node_modules
+*.log
+
+# @vitjs/vit temporary directory
+.vit
+
+data/
+assets/
