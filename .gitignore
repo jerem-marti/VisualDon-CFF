@@ -1,8 +1,25 @@
+data/
+assets/
+
+*/node_modules
+*/*/node_modules
 node_modules
 *.log
+*/package-lock.json
+*/*/package-lock.json
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
 
 # @vitjs/vit temporary directory
 .vit
-
-data/
-assets/
