@@ -1,10 +1,5 @@
-import { defineConfig } from 'vite'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import dsv from '@rollup/plugin-dsv'
-
-export default defineConfig({
-    plugins: [
-        dsv(),
-        nodePolyfills(),
-    ],
-})
+export default {
+  define: {
+    'process.env.MapboxAccessToken': JSON.stringify(process.env.MapboxAccessToken)
+  }
+};
