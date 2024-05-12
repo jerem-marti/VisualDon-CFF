@@ -1,13 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='UTF-8' />
-    <title>deck.gl example</title>
-    <link rel="stylesheet" href="./src/style/style.css">  
-  </head>
-  <body>
+<head>
+    <meta charset='utf-8' />
+    <title>Mapbox Storytelling</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css'/>
+    <link rel="stylesheet" href="./src/styles/style.css" type="text/css">
+</head>
+<body>
     <div id="map"></div>
-    <!--<div id="bahnubergang-infos"><h1></h1><p></p></div>-->
-    <script type="module" src='./src/app.js'></script>
-  </body>
+    <div id="story"></div>
+    <img id="holding-hand" src="./src/assets/img/holding-hand.svg" alt="">
+    <img id="touching-hand" src="./src/assets/img/touching-hand.svg" alt="">
+    <img id="ladybug" src="./src/assets/img/ladybug.svg" alt="">
+    <script type="module" src="./src/app.js"></script>
+</body>
 </html>

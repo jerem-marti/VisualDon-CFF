@@ -1,20 +1,22 @@
 {
-  "name": "deckgl-example-pure-js-mapbox",
-  "version": "0.0.0",
-  "private": true,
-  "license": "MIT",
+  "name": "storytelling-main",
+  "version": "1.0.0",
+  "description": "- [Interactive Storytelling](#interactive-storytelling)   - [Prerequisites](#prerequisites)   - [Getting Started](#getting-started)     - [Steps](#steps)     - [Generate Map Position Using `Helper.html`](#generate-map-position-using-helperhtml)     - [Configuration File and Layer Settings](#configuration-file-and-layer-settings)     - [Configuration Options](#configuration-options)     - [Mapbox Studio Style Configuration](#mapbox-studio-style-configuration)     - [Organization](#organization)   - [Deployment](#deployment)   - [Built With](#built-with)   - [Authors](#authors)   - [License](#license)   - [Acknowledgments](#acknowledgments)",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
   "scripts": {
-    "start": "vite --open",
-    "start-local": "vite --config ../../../vite.config.local.mjs",
-    "build": "vite build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "vite"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@deck.gl/core": "^9.0.0",
-    "@deck.gl/layers": "^9.0.0",
-    "@deck.gl/mapbox": "^9.0.0",
-    "mapbox-gl": "^3.0.0"
-  },
-  "devDependencies": {
-    "vite": "^4.0.0"
+    "deck.gl": "^9.0.14",
+    "intersection-observer": "^0.12.2",
+    "mapbox-gl": "^3.3.0",
+    "scrollama": "^3.2.0",
+    "vite": "^5.2.11"
   }
 }
