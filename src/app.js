@@ -169,15 +169,29 @@ function updateTooltip(layer, {object, x, y}) {
         case 'generalabo':
             break;
         case 'historische_bahnhofbilder':
-            fetch(`https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?select=filename&where=signatur_sbb_historic%20%3D%20%22`+object.signatur_sbb_historic+`%22&limit=1`)
-            .then((response) => response.json())
+            console.log("NOM DU FICHIER DE LA PHOTO HISTORIQUE");
+            console.log(object.properties.signatur_sbb_historic.toLowerCase());
+            fetch(`https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?where=signatur_sbb_historic%3D%22F_116_00001_306%22&limit=20`)
+            //fetch(`https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?select=filename&where=signatur_sbb_historic%20%3D%20%22${object.properties.signatur_sbb_historic.toLowerCase()}%22&limit=1`)
+            .then((response) => {
+                console.log(response);
+                return response.json()
+            })
             .then((data) => {
                 console.log(data);
                 tooltipHTML = `
-                    <p>${object.properties.bahnhof}</p>
-                    <p>${object.properties.datum_foto_1}</p>
-                    <img src="${data.results[0].filename.url}" alt="${object.properties.bahnhof} - ${object.properties.datum_foto_1}" style="width: 100%; height: auto;"/>
+                    <p>${object.properties.bahnhof}<br>${object.properties.datum_foto_1 || ''}</p>
+                    <img src="${data.results[0].filename.url}" alt="${object.properties.bahnhof} - ${object.properties.datum_foto_1}" style="width: auto; height: 40vh;"/>
                 `;
+                tooltip.innerHTML = tooltipHTML;
+
+                tooltip.style.display = 'block';
+                let mapPosition = document.querySelector('#map').getBoundingClientRect();
+                tooltip.style.left = `${mapPosition.left+x-tooltip.offsetWidth}px`;
+                if(mapPosition.top+y < window.innerHeight/2)
+                    tooltip.style.top = `${mapPosition.top+y}px`;
+                else
+                    tooltip.style.top = `${mapPosition.top+y-tooltip.offsetHeight}px`;
             });
             break;
     }
@@ -271,7 +285,7 @@ let bahnhofbenutzer = new ColumnLayer({
     radius: 500,
     elevationScale: 0.1,
     getElevation: d => d.anzahl_bahnhofbenutzer,
-    getFillColor: d => [48, 128, d.anzahl_bahnhofbenutzer/400000 * 255, 255],
+    getFillColor: d => [255, 180, d.anzahl_bahnhofbenutzer/400000 * 255, 255],
     getPosition: d => d.coordinates,
     pickable: true,
     layout: {
@@ -392,10 +406,10 @@ creditentialsTitle.innerText = 'Crédits';
 let creditentialsIntro = document.createElement('p');
 creditentialsIntro.innerHTML = `
 Ce site a été réalisé par <a href="https://www.linkedin.com/in/jermarti/" target="_blank">Jérémy Martin</a> dans le cadre du cours de <a href="https://gaps.heig-vd.ch/public/fiches/uv/uv.php?id=7326&plan=785" target="_blank">Visualisation de données (VisualDon)</a> de la Haute École d'Ingénierie et de Gestion du canton de Vaud (<a href="https://heig-vd.ch/" target="_blank">HEIG-VD</a>).`;
-let creditentialsText = document.createElement('h3');
-creditentialsText.innerHTML = `Données utilisées et provenance`;
-let creditentialsList = document.createElement('ul');
-creditentialsList.innerHTML = `
+let creditentialsData = document.createElement('h3');
+creditentialsData.innerHTML = `Données utilisées et provenance`;
+let creditentialsDataList = document.createElement('ul');
+creditentialsDataList.innerHTML = `
     <li>
         <a href="https://opentransportdata.swiss/fr/">Plateforme open data pour la mobilité en Suisse</a>
         <ul>
@@ -421,12 +435,22 @@ creditentialsList.innerHTML = `
         </ul>
     </li>
     `;
+    let creditentialsText = document.createElement('h3');
+    creditentialsText.innerHTML = `Sources et références des textes`;
+    let creditentialsTextList = document.createElement('ul');
+    creditentialsTextList.innerHTML = `
+        <li>Office fédéral de la statistique (OFS) : <a href="https://www.bfs.admin.ch/bfs/fr/home/statistiques/mobilite-transports/enquetes/oev.html">Statistiques des transports publics suisses</a></li>
+        <li>CFF : <a href="https://company.sbb.ch/fr/entreprise/profil/publications/rapport-de-gestion.html">Rapport annuel des CFF</a></li>
+        <li>Wikipedia : <a href="https://fr.wikipedia.org/wiki/Transport_ferroviaire_en_Suisse">Chemins de fer en Suisse</a></li>
+    `;
 let credits = document.createElement('div');
 credits.id = 'credits';
 credits.appendChild(creditentialsTitle);
 credits.appendChild(creditentialsIntro);
+credits.appendChild(creditentialsData);
+credits.appendChild(creditentialsDataList);
 credits.appendChild(creditentialsText);
-credits.appendChild(creditentialsList);
+credits.appendChild(creditentialsTextList);
 document.getElementById("map").appendChild(credits);
 //End of credits initialization
 
