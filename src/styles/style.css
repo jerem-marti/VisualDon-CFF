@@ -1,6 +1,7 @@
 html { 
     background: url('../assets/img/grass.svg') no-repeat center center fixed; 
     background-size: cover;
+    overflow-x: hidden;
 }
 body {
     margin:0;
@@ -47,6 +48,7 @@ a, a:hover, a:visited {
     width: 40vw;
     z-index: 100;
     transition: top 800ms, right 800ms;
+    pointer-events: none;
 }
 #ladybug {
     position: fixed;
@@ -118,6 +120,7 @@ a, a:hover, a:visited {
     margin: 0 auto;
 }
 #invite-to-scroll p {
+    text-align: center;
     margin: 0;
     padding-bottom: 1rem;
     font-size: 1rem;
@@ -126,7 +129,7 @@ a, a:hover, a:visited {
     height: 25.4vh;
     width: 336.6vh;
     position: fixed;
-    bottom: 17.5vh;
+    bottom: 18vh;
     right: 130vw;
     z-index: 6;
     object-fit: cover;

@@ -1,9 +1,11 @@
 import {MapboxOverlay as DeckOverlay} from '@deck.gl/mapbox';
-import {GeoJsonLayer} from '@deck.gl/layers';
+import {GeoJsonLayer, ColumnLayer} from '@deck.gl/layers';
+import {HeatmapLayer} from '@deck.gl/aggregation-layers';
 import scrollama from "scrollama";
 import mapboxgl, { Control } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import config from './config.js';
+import { Layer } from 'deck.gl';
 
 var alignments = {
     'left': 'lefty',
@@ -13,8 +15,12 @@ var alignments = {
 }
 
 const layersVisibility = {
+    'linie': true,
     'bahnubergang': true,
-    'linie': true
+    'bahnhof': true,
+    'bahnhofbenutzer': true,
+    'generalabo': true,
+    'historische_bahnhofbilder': true
 }
 
 var story = document.getElementById('story');
@@ -130,19 +136,57 @@ tooltip.style.position = 'fixed';
 tooltip.style.zIndex = 6;
 tooltip.style.pointerEvents = 'none';
 tooltip.style.backgroundColor = 'white';
-tooltip.style.padding = `10px`; 
-tooltip.style.borderRadius = `4px`;
-tooltip.style.boxShadow = `rgba(0, 0, 0, 0.1) 0px 0px 10px`; 
+tooltip.style.padding = `0.5rem 1rem`; 
+tooltip.style.borderRadius = `1rem`;
+tooltip.style.boxShadow = `rgba(0, 0, 0, 0.1) 0px 0px 10px`;
 document.body.append(tooltip);
 
-function updateTooltip({object, x, y}) {
-  console.log(object);
-  if (object) {
+function updateTooltip(layer, {object, x, y}) {
+    console.log("updateTooltip");
+    console.log(layer.id);
+    console.log(map.getLayer(layer.id));
+    console.log(map.getLayoutProperty(layer.id, 'visibility') === 'visible');
+  if (object && map.getLayoutProperty(layer.id, 'visibility') === 'visible') {
+    let tooltipHTML = '';
+    console.log("layer.id");
+    console.log(layer.id);
+    console.log("object");
+    console.log(object);
+    switch (layer.id) {
+        case 'linie':
+            tooltipHTML = `<p>${object.properties.liniename}</p>`;
+            break; 
+        case 'bahnubergang':
+            tooltipHTML = `<p>${object.properties.name}</p>`;
+            break;
+        case 'bahnhof':
+            tooltipHTML = `<p>${object.properties.bezeichnung_offiziell}</p>`;
+            break;
+        case 'bahnhofbenutzer':
+            console.log(object);
+            tooltipHTML = `<p>${object.anzahl_bahnhofbenutzer.toLocaleString()} usagers (Gare de ${object.bahnhof_gare_stazione} - ${object.jahr})</p>`;
+            break;
+        case 'generalabo':
+            break;
+        case 'historische_bahnhofbilder':
+            fetch(`https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?select=filename&where=signatur_sbb_historic%20%3D%20%22`+object.signatur_sbb_historic+`%22&limit=1`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                tooltipHTML = `
+                    <p>${object.properties.bahnhof}</p>
+                    <p>${object.properties.datum_foto_1}</p>
+                    <img src="${data.results[0].filename.url}" alt="${object.properties.bahnhof} - ${object.properties.datum_foto_1}" style="width: 100%; height: auto;"/>
+                `;
+            });
+            break;
+    }
+    tooltip.innerHTML = tooltipHTML;
+
     tooltip.style.display = 'block';
-    tooltip.style.left = `${x}px`;
-    tooltip.style.top = `${y}px`;
-    const {name, fid} = object.properties;
-    tooltip.innerHTML = `<h1>${name}</h1><p>${fid || ''}</p>`;
+    let mapPosition = document.querySelector('#map').getBoundingClientRect();
+    tooltip.style.left = `${mapPosition.left+x-tooltip.offsetWidth}px`;
+    tooltip.style.top = `${mapPosition.top+y}px`;
   } else {
     tooltip.style.display = 'none';
   }
@@ -158,62 +202,140 @@ async function fetchSVG(url) {
 const railwayCrossingIcon = await fetchSVG('/src/assets/img/signpost.svg');
 console.log(railwayCrossingIcon);
 
+const bahnhofIcon = await fetchSVG('/src/assets/img/bahnhof.svg');
+
+const cameraIcon = await fetchSVG('/src/assets/img/camera.svg');
+
 function svgToDataURL(svg) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-let deckOverlay = new DeckOverlay({
-    interleaved: true,
-    layers: []
+let linie = new GeoJsonLayer({
+    id: "linie",
+    data: "/src/datas/linie-mit-polygon-updated.geojson",
+    pickable: true,
+    layout: {
+        'visibility': 'visible'
+    },
+    stroked: true,
+    lineWidthMinPixels: 2,
+    opacity: 1,
+    getLineColor: [45, 50, 125],
+    visible: layersVisibility.linie,
+    // Update tooltip position and content
+    onHover: ({object, x, y})=>{updateTooltip(linie, {object, x, y})}
+});
+let bahnubergang = new GeoJsonLayer({
+    id: "bahnubergang",
+    data: "/src/datas/bahnubergang.geojson",
+    pointType: 'icon',
+    getIcon: (d) => ({
+        url: svgToDataURL(railwayCrossingIcon),
+        width: 512,
+        height: 512
+    }),
+    iconSizeScale: 1,
+    iconSizeMinPixels: 24,
+    pickable: true,
+    layout: {
+        'visibility': 'none'
+    },
+    visible: layersVisibility.bahnubergang,
+    // Update tooltip position and content
+    onHover: ({object, x, y})=>{updateTooltip(bahnubergang, {object, x, y})}
+});
+let bahnhof = new GeoJsonLayer({
+    id: "bahnhof",
+    data: "/src/datas/linie-mit-betriebspunkten.geojson",
+    pointType: 'icon',
+    getIcon: (d) => ({
+        url: svgToDataURL(bahnhofIcon),
+        width: 512,
+        height: 512
+    }),
+    iconSizeScale: 1,
+    iconSizeMinPixels: 24,
+    pickable: true,
+    layout: {
+        'visibility': 'visible'
+    },
+    visible: layersVisibility.bahnhof,
+    // Update tooltip position and content
+    onHover: ({object, x, y})=>{updateTooltip(bahnhof, {object, x, y})}
+});
+let bahnhofbenutzer = new ColumnLayer({
+    id: 'bahnhofbenutzer',
+    data: '/src/datas/filtered_anzahl-sbb-bahnhofbenutzer.json',
+    diskResolution: 100,
+    extruded: true,
+    radius: 500,
+    elevationScale: 0.1,
+    getElevation: d => d.anzahl_bahnhofbenutzer,
+    getFillColor: d => [48, 128, d.anzahl_bahnhofbenutzer/400000 * 255, 255],
+    getPosition: d => d.coordinates,
+    pickable: true,
+    layout: {
+        'visibility': 'visible'
+    },
+    visible: layersVisibility.bahnhofbenutzer,
+    // Update tooltip position and content
+    onHover: ({object, x, y})=>{updateTooltip(bahnhofbenutzer, {object, x, y})}
+});
+let historische_bahnhofbilder = new GeoJsonLayer({
+    id: "historische_bahnhofbilder",
+    data: "/src/datas/historische-bahnhofbilder.geojson",
+    pointType: 'icon',
+    getIcon: (d) => ({
+        url: svgToDataURL(cameraIcon),
+        width: 512,
+        height: 512
+    }),
+    iconSizeScale: 1,
+    iconSizeMinPixels: 24,
+    pickable: true,
+    layout: {
+        'visibility': 'visible'
+    },
+    visible: layersVisibility.historische_bahnhofbilder,
+    // Update tooltip position and content
+    onHover: ({object, x, y})=>{updateTooltip(historische_bahnhofbilder, {object, x, y})}
+});
+let generalabo = new ColumnLayer({
+    id: 'generalabo',
+    data: '/src/datas/updated_generalabo_halbtax_mit_bevolkerungsdaten.json',
+    diskResolution: 100,
+    extruded: true,
+    radius: 500,
+    elevationScale: 1,
+    getElevation: d => d.ga_ag,
+    getFillColor: d => [48, 128, d.ga_ag/5000 * 255, 255],
+    getPosition: d => d.coordinates,
+    pickable: true,
+    layout: {
+        'visibility': 'none'
+    },
+    visible: layersVisibility.generalabo,
+    // Update tooltip position and content
+    onHover: ({object, x, y})=>{updateTooltip(generalabo, {object, x, y})}
 });
 
-function updateDeckOverlay() {
-    map.removeControl(deckOverlay);
-    deckOverlay = new DeckOverlay({
+
+let deckOverlay = new DeckOverlay({
     interleaved: true,
     layers: [
-        new GeoJsonLayer({
-        id: "bahnubergang",
-        data: "/src/datas/bahnubergang.geojson",
-        pointType: 'icon',
-        getIcon: (d) => ({
-            url: svgToDataURL(railwayCrossingIcon),
-            width: 512,
-            height: 512
-        }),
-        iconSizeScale: 1,
-        iconSizeMinPixels: 24,
-        pickable: true,
-        layout: {
-            'visibility': 'visible'
-        },
-        visible: layersVisibility.bahnubergang,
-        // Update tooltip position and content
-        onHover: updateTooltip
-        }),
-        new GeoJsonLayer({
-        id: "linie",
-        data: "/src/datas/linie-mit-polygon.geojson",
-        pickable: true,
-        layout: {
-            'visibility': 'visible'
-        },
-        stroked: true,
-        lineWidthMinPixels: 3,
-        opacity: 0.1,
-        getLineColor: [0, 0, 255],
-        visible: layersVisibility.linie,
-        // Update tooltip position and content
-        onHover: updateTooltip
-        })
+        linie,
+        bahnubergang,
+        bahnhof,
+        bahnhofbenutzer,
+        generalabo,
+        historische_bahnhofbilder
     ]
-    });
-    map.addControl(deckOverlay);
-}
+});
 
 function setLayerVisibility(layer) {
     const clickedLayer = layer.layer;
     console.log("layer: "+clickedLayer+", visibility: "+layer.visibility);
+    console.log(layer);
     
     /*const visibility = map.getLayoutProperty(
         clickedLayer,
@@ -274,15 +396,31 @@ let creditentialsText = document.createElement('h3');
 creditentialsText.innerHTML = `Données utilisées et provenance`;
 let creditentialsList = document.createElement('ul');
 creditentialsList.innerHTML = `
-    <li><a href="https://opentransportdata.swiss/en/cookbook/gtfs/">GTFS <em>(General Transit Feed Specification)</em></a></li>
-    <li><a href="https://opentransportdata.swiss/en/cookbook/gtfs-rt/">GTFS-RT <em>(Realtime)</em></a></li>
-    <li><a href="https://data.sbb.ch/explore/dataset/bahnubergang/information/">Passage à niveau CFF</a></li>
-    <li><a href="https://data.sbb.ch/explore/dataset/linie/">Réseau des lignes CFF</a></li>
-    <li><a href="https://data.sbb.ch/explore/dataset/anzahl-sbb-bahnhofbenutzer/">Nombre d’usagers de la gare CFF</a></li>
-    <li><a href="https://data.sbb.ch/explore/dataset/linie-mit-polygon/">Ligne (graphique)</a></li>
-    <li><a href="https://data.sbb.ch/explore/dataset/generalabo-halbtax-mit-bevolkerungsdaten/">Abonnement général/abonnement demi-tarif – avec données sur la population</a></li>
-    <li><a href="https://data.sbb.ch/explore/dataset/historische-bahnhofbilder/">Images historiques de gares ferroviaires</a></li>
-`;
+    <li>
+        <a href="https://opentransportdata.swiss/fr/">Plateforme open data pour la mobilité en Suisse</a>
+        <ul>
+            <li><a href="https://opentransportdata.swiss/en/cookbook/gtfs/">GTFS <em>(General Transit Feed Specification)</em></a></li>
+            <li><a href="https://opentransportdata.swiss/en/cookbook/gtfs-rt/">GTFS-RT <em>(Realtime)</em></a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="https://data.sbb.ch/pages/home/">SBB Open Data</a>
+        <ul>
+            <li><a href="https://data.sbb.ch/explore/dataset/bahnubergang/information/">Passage à niveau CFF</a></li>
+            <li><a href="https://data.sbb.ch/explore/dataset/linie/">Réseau des lignes CFF</a></li>
+            <li><a href="https://data.sbb.ch/explore/dataset/anzahl-sbb-bahnhofbenutzer/">Nombre d’usagers de la gare CFF</a></li>
+            <li><a href="https://data.sbb.ch/explore/dataset/linie-mit-polygon/">Ligne (graphique)</a></li>
+            <li><a href="https://data.sbb.ch/explore/dataset/generalabo-halbtax-mit-bevolkerungsdaten/">Abonnement général/abonnement demi-tarif – avec données sur la population</a></li>
+            <li><a href="https://data.sbb.ch/explore/dataset/historische-bahnhofbilder/">Images historiques de gares ferroviaires</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="https://www.swisstopo.admin.ch/fr">Office fédéral de topographie swisstopo</a>
+        <ul>
+            <li><a href="https://www.swisstopo.admin.ch/fr/repertoire-officiel-des-localites#R%C3%A9pertoire-des-localit%C3%A9s---Download">Répertoire des localités</a></li>
+        </ul>
+    </li>
+    `;
 let credits = document.createElement('div');
 credits.id = 'credits';
 credits.appendChild(creditentialsTitle);
@@ -322,7 +460,7 @@ map.on("load", function() {
 
     let mapControl = new mapboxgl.NavigationControl();
     map.addControl(mapControl, 'top-right');
-    updateDeckOverlay();
+    map.addControl(deckOverlay);
     let controlContainer = document.querySelector(".mapboxgl-control-container");
     // setup the instance, pass callback functions
     scroller
