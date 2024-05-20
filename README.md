@@ -10,32 +10,32 @@ Les données utilisées proviennent de deux sources presque communes :
 Les CFF mettent à disposition un nombre important d'Open Data concernant leur exploitation. Ces données sont importantes au sein de l'entreprise pour sa gestion. Il est clair qu'une entreprise nationale telle que les CFF se doit de collecter des informations afin de prendre des décisions concrètes. Le but de mettre une partie de leurs données en libre accès est de soutenir l'innovation et le développement de services. Ces services auront pour eux un effet passif de renforcement de l'attrait des transports publics en Suisse.
 **Lien** : https://data.sbb.ch/
 
-### Opentransportdata.swiss
-Exploitée pour le compte de l’Office fédéral des transports, Opentransportdata.swiss est la plateforme des données d’information des transports publics suisses et de la mobilité individuelle. Elle permet de consulter gratuitement des données relatives à la mobilité en général et d’accéder à différents services. Le but était en 2017 et est encore maintenant l'amélioration du domaine numérique pour les transports par le biais de la mise à disposition des données. Ayant été créée en collaboration entre les CFF, l'OFT et Liip, plusieurs datasets mis à disposition sur data.sbb.ch (cf. ci-dessus) sont originaires de Opentransportdata.
-**Lien** : https://opentransportdata.swiss/
+### ~~Opentransportdata.swiss~~
+~~Exploitée pour le compte de l’Office fédéral des transports, Opentransportdata.swiss est la plateforme des données d’information des transports publics suisses et de la mobilité individuelle. Elle permet de consulter gratuitement des données relatives à la mobilité en général et d’accéder à différents services. Le but était en 2017 et est encore maintenant l'amélioration du domaine numérique pour les transports par le biais de la mise à disposition des données. Ayant été créée en collaboration entre les CFF, l'OFT et Liip, plusieurs datasets mis à disposition sur data.sbb.ch (cf. ci-dessus) sont originaires de Opentransportdata.
+**Lien** : https://opentransportdata.swiss/~~
 
 ## Données
 _Comment sont structurées les données ? Parler du format, des attributs et du type de données._
 
-Afin de créer mon projet de scrollytelling, je me suis basé sur deux "types" de données. Premièrement, il y a les données concernant le trafic ferroviaire qui concernent les horaires, trajets, etc. Deuxièmement, des données concernant les services annexes nécessaires à l'exploitation des trains tels que les rails, les gares, etc.
+Afin de créer mon projet de scrollytelling, je me suis basé sur deux "types" de données. Premièrement, il y a les données concernant ~~le trafic ferroviaire qui concernent les horaires, trajets, etc.~~ Deuxièmement, des données concernant les services annexes nécessaires à l'exploitation des trains tels que les rails, les gares, etc.
 
-### Données du traffic féroviaire suisse
-Opentransportdata met à disposition deux sources de données concernant le trafic ferroviaire suisse :
-- GTFS _(General Transit Feed Specification)_
-- GTFS-RT _(Realtime)_
+### ~~Données du traffic féroviaire suisse~~
+~~Opentransportdata met à disposition deux sources de données concernant le trafic ferroviaire suisse :~~
+- ~~GTFS _(General Transit Feed Specification)_~~
+- ~~GTFS-RT _(Realtime)_~~
 
-GTFS est une norme ouverte qui permet de représenter de manière cohérente les horaires et les informations géographiques des services de transport public. Elle est utilisée par les agences de transport pour publier leurs données de transport, ce qui permet ensuite aux développeurs d'applications de créer des outils de navigation, des horaires et des services de planification de trajets pour les usagers. GTFS définit un format spécifique pour les données, habituellement sous forme de fichiers CSV zippés, comprenant des informations telles que les arrêts, les trajets, les horaires et d'autres détails opérationnels.
+~~GTFS est une norme ouverte qui permet de représenter de manière cohérente les horaires et les informations géographiques des services de transport public. Elle est utilisée par les agences de transport pour publier leurs données de transport, ce qui permet ensuite aux développeurs d'applications de créer des outils de navigation, des horaires et des services de planification de trajets pour les usagers. GTFS définit un format spécifique pour les données, habituellement sous forme de fichiers CSV zippés, comprenant des informations telles que les arrêts, les trajets, les horaires et d'autres détails opérationnels.~~
 
-GTFS-Realtime, quant à lui, est une extension du GTFS qui fournit des informations en temps réel sur le transport public, comme les retards, les annulations ou les modifications temporaires des itinéraires. Il utilise un format basé sur le protocole Protocol Buffers de Google, qui est plus léger et plus rapide à analyser que le format CSV. GTFS-RT permet aux utilisateurs d'accéder à des informations à jour sur l'état du réseau de transport, améliorant ainsi la planification des trajets et l'expérience globale des usagers du transport public.
+~~GTFS-Realtime, quant à lui, est une extension du GTFS qui fournit des informations en temps réel sur le transport public, comme les retards, les annulations ou les modifications temporaires des itinéraires. Il utilise un format basé sur le protocole Protocol Buffers de Google, qui est plus léger et plus rapide à analyser que le format CSV. GTFS-RT permet aux utilisateurs d'accéder à des informations à jour sur l'état du réseau de transport, améliorant ainsi la planification des trajets et l'expérience globale des usagers du transport public.~~
 
-**Liens** : 
-- https://gtfs.org/
-- https://opentransportdata.swiss/fr/dataset/timetable-2024-gtfs2020
+~~**Liens** :~~
+- ~~https://gtfs.org/~~
+- ~~https://opentransportdata.swiss/fr/dataset/timetable-2024-gtfs2020~~
 
-**Accès aux données** :
-live (GTFS-RT) sont disponibles via une API. Cependant, il est nécessaire d'être identifié avec un token pour y avoir accès. Voici le lien d'inscription : https://opentransportdata.swiss/en/register/
+~~**Accès aux données** :~~
+~~live (GTFS-RT) sont disponibles via une API. Cependant, il est nécessaire d'être identifié avec un token pour y avoir accès. Voici le lien d'inscription : https://opentransportdata.swiss/en/register/~~
 
-Les informations concernant les tarifs d'accès et les conditions sont accessibles via : https://opentransportdata.swiss/en/terms-of-use/
+~~Les informations concernant les tarifs d'accès et les conditions sont accessibles via : https://opentransportdata.swiss/en/terms-of-use/~~
 
 ### Données annexes au traffic féroviaire suisse
 Les données annexes ont été choisies en fonction du storytelling. Nous pouvons y retrouver les datasets suivants :
@@ -59,6 +59,11 @@ Afin de conceptualiser le projet, un wireframe à été réalisé sur Figma. Il 
 
 - [Board Figma](https://www.figma.com/file/t4qE9l2qB8bEzUYkk3uKyR/Wireframe?type=design&node-id=0%3A1&mode=design&t=NpGxhIR3UM60FR7E-1)
 - [Prototype Figma](https://www.figma.com/proto/t4qE9l2qB8bEzUYkk3uKyR/Wireframe?page-id=0%3A1&type=design&node-id=13-2600&viewport=369%2C454%2C0.39&t=FwHd5mDZj7SWNnQ4-1&scaling=scale-down&mode=design)
+
+## Retours sur le projet
+Il m'a été impossible de faire une carte live des trains suisses. Les données sont trop volumineuses et brutes afin d'être facilement traitées en front-end. J'ai cependant découvert [geops.io](https://developer.geops.io/) (un portail qui fournit une toolbox pour les applications de transport public). Ils ont une API qui fonctionne en Websocket ou HTTPS et permet d'avoir la position des trains en temps réel. Ils ont de plus intégré la possibilité d'intégrer leur carte directement dans Mapbox. J'ai essayé d'implémenter la carte de Geops mais j'ai malheureusement rencontré des problèmes de version de framework avec Vite et le framework devops. À noter que les requêtes gratuites en Live partent très vite !
+
+En ce qui concerne le reste du projet, j'ai bien aimé travailler avec Deck.gl et Mapbox. La prise en main prend un peu de temps mais les résultats sont sympathiques.
 
 ## Références
 _Qui d'autre sur le web ou dans la recherche a utilisé ces données ? Dans quel but ?_
