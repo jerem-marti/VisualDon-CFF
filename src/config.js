@@ -1,6 +1,6 @@
 var config = {
     style: 'mapbox://styles/jerem-marti/clvzjtajr02dl01qz6y02cyfv',
-    accessToken: process.env.MAPBOX_API,
+    accessToken: `pk.eyJ1IjoiamVyZW0tbWFydGkiLCJhIjoiY2x3ZTU4aXpoMWRoajJxcW1hbzM1YjNzcyJ9.JjClDhoGvwAEbYhl0j3Czw`,
     showMarkers: false,
     theme: 'light',
     use3dTerrain: false,
