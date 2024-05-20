@@ -43,7 +43,7 @@ Les données annexes ont été choisies en fonction du storytelling. Nous pouvon
 - [Réseau des lignes CFF](https://data.sbb.ch/explore/dataset/linie/)
 - [Nombre d’usagers de la gare CFF](https://data.sbb.ch/explore/dataset/anzahl-sbb-bahnhofbenutzer/)
 - [Ligne (graphique)](https://data.sbb.ch/explore/dataset/linie-mit-polygon/)
-- [Abonnement général/abonnement demi-tarif – avec données sur la population](https://data.sbb.ch/explore/dataset/generalabo-halbtax-mit-bevolkerungsdaten/)
+- ~~[Abonnement général/abonnement demi-tarif – avec données sur la population](https://data.sbb.ch/explore/dataset/generalabo-halbtax-mit-bevolkerungsdaten/)~~
 - [Images historiques de gares ferroviaires](https://data.sbb.ch/explore/dataset/historische-bahnhofbilder/)
 
 ## But du projet
