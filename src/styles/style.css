@@ -245,6 +245,10 @@ a, a:hover, a:visited {
     #invite-to-scroll img {
         width: 6vw;
     }
+    #credits {
+        font-size: 0.8rem;
+        line-height: 1rem;
+    }
 }
 
 /* Fix issue on mobile browser where scroll breaks  */
