@@ -17,9 +17,9 @@ function updateTooltip(map, layer, {object, x, y}) {
     // //console.log(layer.id);
     // //console.log(map.getLayer(layer.id));
     // //console.log(map.getLayoutProperty(layer.id, 'visibility') === 'visible');
+    if (!document.querySelector("#tooltip")) initialization();
     const tooltip = document.querySelector('#tooltip');
     if (object && map.getLayoutProperty(layer.id, "visibility") === "visible") {
-        if (!document.querySelector("#tooltip")) initialization();
         let tooltipHTML = "";
         //console.log("layer.id");
         //console.log(layer.id);
