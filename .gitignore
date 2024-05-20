@@ -61,9 +61,6 @@ typings/
 # next.js build output
 .next
 
-# development config.js files
-/src/config.js
-
 # vscode
 .vscode/*
 !.vscode/settings.json

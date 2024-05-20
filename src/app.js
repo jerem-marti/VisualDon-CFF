@@ -19,7 +19,6 @@ const layersVisibility = {
     'bahnubergang': true,
     'bahnhof': true,
     'bahnhofbenutzer': true,
-    'generalabo': true,
     'historische_bahnhofbilder': true
 }
 
@@ -142,10 +141,10 @@ tooltip.style.boxShadow = `rgba(0, 0, 0, 0.1) 0px 0px 10px`;
 document.body.append(tooltip);
 
 function updateTooltip(layer, {object, x, y}) {
-    console.log("updateTooltip");
-    console.log(layer.id);
-    console.log(map.getLayer(layer.id));
-    console.log(map.getLayoutProperty(layer.id, 'visibility') === 'visible');
+    // console.log("updateTooltip");
+    // console.log(layer.id);
+    // console.log(map.getLayer(layer.id));
+    // console.log(map.getLayoutProperty(layer.id, 'visibility') === 'visible');
   if (object && map.getLayoutProperty(layer.id, 'visibility') === 'visible') {
     let tooltipHTML = '';
     console.log("layer.id");
@@ -165,8 +164,6 @@ function updateTooltip(layer, {object, x, y}) {
         case 'bahnhofbenutzer':
             console.log(object);
             tooltipHTML = `<p>${object.anzahl_bahnhofbenutzer.toLocaleString()} usagers (Gare de ${object.bahnhof_gare_stazione} - ${object.jahr})</p>`;
-            break;
-        case 'generalabo':
             break;
         case 'historische_bahnhofbilder':
             console.log("NOM DU FICHIER DE LA PHOTO HISTORIQUE");
@@ -192,6 +189,10 @@ function updateTooltip(layer, {object, x, y}) {
                     tooltip.style.top = `${mapPosition.top+y}px`;
                 else
                     tooltip.style.top = `${mapPosition.top+y-tooltip.offsetHeight}px`;
+                document.body.addEventListener("mousemove", (event) => {
+                    updateTooltip(null, {object:null, x:0, y:0});
+                    document.body.removeEventListener("mousemove");
+                });
             });
             break;
     }
@@ -285,7 +286,7 @@ let bahnhofbenutzer = new ColumnLayer({
     radius: 500,
     elevationScale: 0.1,
     getElevation: d => d.anzahl_bahnhofbenutzer,
-    getFillColor: d => [255, 180, d.anzahl_bahnhofbenutzer/400000 * 255, 255],
+    getFillColor: d => [255-((1-d.anzahl_bahnhofbenutzer/400000)*255/4), 180-((1-d.anzahl_bahnhofbenutzer/400000)*180/4), 0, 255],
     getPosition: d => d.coordinates,
     pickable: true,
     layout: {
@@ -314,25 +315,6 @@ let historische_bahnhofbilder = new GeoJsonLayer({
     // Update tooltip position and content
     onHover: ({object, x, y})=>{updateTooltip(historische_bahnhofbilder, {object, x, y})}
 });
-let generalabo = new ColumnLayer({
-    id: 'generalabo',
-    data: '/src/datas/updated_generalabo_halbtax_mit_bevolkerungsdaten.json',
-    diskResolution: 100,
-    extruded: true,
-    radius: 500,
-    elevationScale: 1,
-    getElevation: d => d.ga_ag,
-    getFillColor: d => [48, 128, d.ga_ag/5000 * 255, 255],
-    getPosition: d => d.coordinates,
-    pickable: true,
-    layout: {
-        'visibility': 'none'
-    },
-    visible: layersVisibility.generalabo,
-    // Update tooltip position and content
-    onHover: ({object, x, y})=>{updateTooltip(generalabo, {object, x, y})}
-});
-
 
 let deckOverlay = new DeckOverlay({
     interleaved: true,
@@ -341,7 +323,6 @@ let deckOverlay = new DeckOverlay({
         bahnubergang,
         bahnhof,
         bahnhofbenutzer,
-        generalabo,
         historische_bahnhofbilder
     ]
 });
@@ -411,27 +392,13 @@ creditentialsData.innerHTML = `Données utilisées et provenance`;
 let creditentialsDataList = document.createElement('ul');
 creditentialsDataList.innerHTML = `
     <li>
-        <a href="https://opentransportdata.swiss/fr/">Plateforme open data pour la mobilité en Suisse</a>
-        <ul>
-            <li><a href="https://opentransportdata.swiss/en/cookbook/gtfs/">GTFS <em>(General Transit Feed Specification)</em></a></li>
-            <li><a href="https://opentransportdata.swiss/en/cookbook/gtfs-rt/">GTFS-RT <em>(Realtime)</em></a></li>
-        </ul>
-    </li>
-    <li>
         <a href="https://data.sbb.ch/pages/home/">SBB Open Data</a>
         <ul>
             <li><a href="https://data.sbb.ch/explore/dataset/bahnubergang/information/">Passage à niveau CFF</a></li>
             <li><a href="https://data.sbb.ch/explore/dataset/linie/">Réseau des lignes CFF</a></li>
             <li><a href="https://data.sbb.ch/explore/dataset/anzahl-sbb-bahnhofbenutzer/">Nombre d’usagers de la gare CFF</a></li>
             <li><a href="https://data.sbb.ch/explore/dataset/linie-mit-polygon/">Ligne (graphique)</a></li>
-            <li><a href="https://data.sbb.ch/explore/dataset/generalabo-halbtax-mit-bevolkerungsdaten/">Abonnement général/abonnement demi-tarif – avec données sur la population</a></li>
             <li><a href="https://data.sbb.ch/explore/dataset/historische-bahnhofbilder/">Images historiques de gares ferroviaires</a></li>
-        </ul>
-    </li>
-    <li>
-        <a href="https://www.swisstopo.admin.ch/fr">Office fédéral de topographie swisstopo</a>
-        <ul>
-            <li><a href="https://www.swisstopo.admin.ch/fr/repertoire-officiel-des-localites#R%C3%A9pertoire-des-localit%C3%A9s---Download">Répertoire des localités</a></li>
         </ul>
     </li>
     `;
