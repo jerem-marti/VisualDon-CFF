@@ -1,6 +1,6 @@
 var config = {
     style: 'mapbox://styles/jerem-marti/clvzjtajr02dl01qz6y02cyfv',
-    accessToken: process.env.MAPBOX_API,
+    accessToken: process.env.MY_SECRET,
     showMarkers: false,
     theme: 'light',
     use3dTerrain: false,
@@ -44,10 +44,6 @@ var config = {
                     visibility: 'none'
                 },
                 {
-                    layer: 'generalabo',
-                    visibility: 'none'
-                },
-                {
                     layer: 'historische_bahnhofbilder',
                     visibility: 'none'
                 }
@@ -88,10 +84,6 @@ var config = {
                 },
                 {
                     layer: 'bahnhofbenutzer',
-                    visibility: 'none'
-                },
-                {
-                    layer: 'generalabo',
                     visibility: 'none'
                 },
                 {
@@ -139,10 +131,6 @@ var config = {
                     visibility: 'none'
                 },
                 {
-                    layer: 'generalabo',
-                    visibility: 'none'
-                },
-                {
                     layer: 'historische_bahnhofbilder',
                     visibility: 'none'
                 }
@@ -181,10 +169,6 @@ var config = {
                 },
                 {
                     layer: 'bahnhofbenutzer',
-                    visibility: 'none'
-                },
-                {
-                    layer: 'generalabo',
                     visibility: 'none'
                 },
                 {
@@ -229,10 +213,6 @@ var config = {
                     visibility: 'visible'
                 },
                 {
-                    layer: 'generalabo',
-                    visibility: 'none'
-                },
-                {
                     layer: 'historische_bahnhofbilder',
                     visibility: 'none'
                 }
@@ -274,10 +254,6 @@ var config = {
                 },
                 {
                     layer: 'bahnhofbenutzer',
-                    visibility: 'none'
-                },
-                {
-                    layer: 'generalabo',
                     visibility: 'none'
                 },
                 {

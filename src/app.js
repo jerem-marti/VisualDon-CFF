@@ -1,11 +1,9 @@
 import {MapboxOverlay as DeckOverlay} from '@deck.gl/mapbox';
 import {GeoJsonLayer, ColumnLayer} from '@deck.gl/layers';
-import {HeatmapLayer} from '@deck.gl/aggregation-layers';
 import scrollama from "scrollama";
-import mapboxgl, { Control } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import config from './config.js';
-import { Layer } from 'deck.gl';
 
 var alignments = {
     'left': 'lefty',
@@ -141,16 +139,16 @@ tooltip.style.boxShadow = `rgba(0, 0, 0, 0.1) 0px 0px 10px`;
 document.body.append(tooltip);
 
 function updateTooltip(layer, {object, x, y}) {
-    // console.log("updateTooltip");
-    // console.log(layer.id);
-    // console.log(map.getLayer(layer.id));
-    // console.log(map.getLayoutProperty(layer.id, 'visibility') === 'visible');
+    // //console.log("updateTooltip");
+    // //console.log(layer.id);
+    // //console.log(map.getLayer(layer.id));
+    // //console.log(map.getLayoutProperty(layer.id, 'visibility') === 'visible');
   if (object && map.getLayoutProperty(layer.id, 'visibility') === 'visible') {
     let tooltipHTML = '';
-    console.log("layer.id");
-    console.log(layer.id);
-    console.log("object");
-    console.log(object);
+    //console.log("layer.id");
+    //console.log(layer.id);
+    //console.log("object");
+    //console.log(object);
     switch (layer.id) {
         case 'linie':
             tooltipHTML = `<p>${object.properties.liniename}</p>`;
@@ -162,20 +160,20 @@ function updateTooltip(layer, {object, x, y}) {
             tooltipHTML = `<p>${object.properties.bezeichnung_offiziell}</p>`;
             break;
         case 'bahnhofbenutzer':
-            console.log(object);
+            //console.log(object);
             tooltipHTML = `<p>${object.anzahl_bahnhofbenutzer.toLocaleString()} usagers (Gare de ${object.bahnhof_gare_stazione} - ${object.jahr})</p>`;
             break;
         case 'historische_bahnhofbilder':
-            console.log("NOM DU FICHIER DE LA PHOTO HISTORIQUE");
-            console.log(object.properties.signatur_sbb_historic.toLowerCase());
+            //console.log("NOM DU FICHIER DE LA PHOTO HISTORIQUE");
+            //console.log(object.properties.signatur_sbb_historic.toLowerCase());
             fetch(`https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?where=signatur_sbb_historic%3D%22F_116_00001_306%22&limit=20`)
             //fetch(`https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?select=filename&where=signatur_sbb_historic%20%3D%20%22${object.properties.signatur_sbb_historic.toLowerCase()}%22&limit=1`)
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 return response.json()
             })
             .then((data) => {
-                console.log(data);
+                //console.log(data);
                 tooltipHTML = `
                     <p>${object.properties.bahnhof}<br>${object.properties.datum_foto_1 || ''}</p>
                     <img src="${data.results[0].filename.url}" alt="${object.properties.bahnhof} - ${object.properties.datum_foto_1}" style="width: auto; height: 40vh;"/>
@@ -210,12 +208,11 @@ function updateTooltip(layer, {object, x, y}) {
 async function fetchSVG(url) {
   const response = await fetch(url);
   const text = await response.text();
-  console.log(text);
+  //console.log(text);
   return text;
 }
 
 const railwayCrossingIcon = await fetchSVG('/src/assets/img/signpost.svg');
-console.log(railwayCrossingIcon);
 
 const bahnhofIcon = await fetchSVG('/src/assets/img/bahnhof.svg');
 
@@ -329,8 +326,8 @@ let deckOverlay = new DeckOverlay({
 
 function setLayerVisibility(layer) {
     const clickedLayer = layer.layer;
-    console.log("layer: "+clickedLayer+", visibility: "+layer.visibility);
-    console.log(layer);
+    //console.log("layer: "+clickedLayer+", visibility: "+layer.visibility);
+    //console.log(layer);
     
     /*const visibility = map.getLayoutProperty(
         clickedLayer,
@@ -518,7 +515,7 @@ map.on("load", function() {
         let map = document.getElementById('map');
         if (response.element.id === 'homepage') {
 
-            console.log(response.progress);
+            //console.log(response.progress);
 
             if(response.progress < 0.25) {
                 homepageTrain.style.transform = `translate(0vh)`;
@@ -553,7 +550,7 @@ window.addEventListener('resize', scroller.resize);
 let timeoutId = null;
 function handleClick(event) {
     const touchHand = document.getElementById('touching-hand');
-    console.log(document.querySelector("#touching-hand"));
+    //console.log(document.querySelector("#touching-hand"));
     if (timeoutId) {
         clearTimeout(timeoutId);
     }
@@ -605,6 +602,6 @@ function moveLadybug() {
 }
 
 moveLadybug();
-console.log(map);
+//console.log(map);
 
 document.addEventListener('click', handleClick);
