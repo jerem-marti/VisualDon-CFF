@@ -1,0 +1,236 @@
+[
+    {
+        "bahnhof_gare_stazione": "Aarau",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 76000,
+        "coordinates": [
+            8.051273718700699,
+            47.39135951416977
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Baden",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 58000,
+        "coordinates": [
+            8.307709474036757,
+            47.476424284622105
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Basel SBB",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 140000,
+        "coordinates": [
+            7.589562790156526,
+            47.54741205505015
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Bellinzona",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 16000,
+        "coordinates": [
+            9.02951851227292,
+            46.195431792205746
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Bern",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 297000,
+        "coordinates": [
+            7.439130889923934,
+            46.94883229049847
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Biel/Bienne",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 64000,
+        "coordinates": [
+            7.242910603227559,
+            47.13289787086168
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Chur",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 40000,
+        "coordinates": [
+            9.528937733041323,
+            46.85308416276408
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Fribourg/Freiburg",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 33000,
+        "coordinates": [
+            7.151046883336622,
+            46.80314817217614
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Genève",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 171000,
+        "coordinates": [
+            6.142451595144949,
+            46.210212898757526
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Genève-Aéroport",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 41000,
+        "coordinates": [
+            6.111985572600153,
+            46.23253853438607
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Genève-Eaux-Vives",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 13000,
+        "coordinates": [
+            6.16656958815968,
+            46.20144540651997
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Lausanne",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 126000,
+        "coordinates": [
+            6.629092303198572,
+            46.51679183546505
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Lugano",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 30000,
+        "coordinates": [
+            8.94699530850776,
+            46.0055005499147
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Luzern",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 144000,
+        "coordinates": [
+            8.310183206942789,
+            47.05017782808568
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Neuchâtel",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 29000,
+        "coordinates": [
+            6.935701694124805,
+            46.99672679256177
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Olten",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 69000,
+        "coordinates": [
+            7.9076996479129,
+            47.35193475927179
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "St. Gallen",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 78000,
+        "coordinates": [
+            9.369896662720434,
+            47.423178949902116
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Thun",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 41000,
+        "coordinates": [
+            7.629605828669477,
+            46.7548527305928
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Zug",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 60000,
+        "coordinates": [
+            8.51504934096482,
+            47.17370697768503
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Zürich Altstetten",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 67000,
+        "coordinates": [
+            8.495085567556904,
+            47.39056836593846
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Zürich Hardbrücke",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 50000,
+        "coordinates": [
+            8.517126201465674,
+            47.38519789150452
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Zürich HB",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 399000,
+        "coordinates": [
+            8.528889564813943,
+            47.38126103245782
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Zürich Oerlikon",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 114000,
+        "coordinates": [
+            8.544139909988267,
+            47.41153004120178
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Zürich Stadelhofen",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 87000,
+        "coordinates": [
+            8.548489088449456,
+            47.36660976671019
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Winterthur",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 131000,
+        "coordinates": [
+            8.723821055408687,
+            47.50033381046675
+        ]
+    },
+    {
+        "bahnhof_gare_stazione": "Zürich Enge",
+        "jahr": 2023,
+        "anzahl_bahnhofbenutzer": 25000,
+        "coordinates": [
+            8.53082057474785,
+            47.364098818019286
+        ]
+    }
+]
