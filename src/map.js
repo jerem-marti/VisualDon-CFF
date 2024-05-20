@@ -247,11 +247,7 @@ map.on("load", function() {
             visibility: visible;
             opacity: 1;
             transition: opacity 500ms linear;`;
-        }
-        else if (response.element.id !== 'homepage') {
-            document.querySelector('#homepage>div').style = `transform: translateY(-100vh)`;
-        }
-        
+        }   
     })
     .onStepExit(response => {
         var chapter = config.chapters.find(chap => chap.id === response.element.id);
@@ -304,9 +300,16 @@ map.on("load", function() {
             homepage.style.transform = `translateY(-100vh)`;
         }
     });
+    window.scrollTo(0, 20);
+    window.scrollBy({
+        top: -20,
+        left: 0,
+        behavior: "smooth",
+      });
 });
 
 // setup resize event
 window.addEventListener('resize', scroller.resize);
+
 
 export default map;

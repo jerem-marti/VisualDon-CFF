@@ -12,6 +12,11 @@ function initialization () {
     return tooltip;
 }
 
+function removeTooltip() {
+    updateTooltip(null, null, { object: null, x: 0, y: 0 });
+    document.body.removeEventListener("mousemove", removeTooltip);
+}
+
 function updateTooltip(map, layer, {object, x, y}) {
     // //console.log("updateTooltip");
     // //console.log(layer.id);
@@ -42,10 +47,10 @@ function updateTooltip(map, layer, {object, x, y}) {
             } - ${object.jahr})</p>`;
             break;
         case "historische_bahnhofbilder":
-            //console.log("NOM DU FICHIER DE LA PHOTO HISTORIQUE");
-            //console.log(object.properties.signatur_sbb_historic.toLowerCase());
+            // console.log("NOM DU FICHIER DE LA PHOTO HISTORIQUE");
+            // console.log(object.properties.signatur_sbb_historic.toLowerCase());
             fetch(
-            `https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?where=signatur_sbb_historic%3D%22F_116_00001_306%22&limit=20`
+            `https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?where=signatur_sbb_historic%3D%22${object.properties.signatur_sbb_historic}%22&limit=20`
             )
             //fetch(`https://data.sbb.ch/api/explore/v2.1/catalog/datasets/historische-bahnhofbilder/records?select=filename&where=signatur_sbb_historic%20%3D%20%22${object.properties.signatur_sbb_historic.toLowerCase()}%22&limit=1`)
             .then((response) => {
@@ -55,34 +60,19 @@ function updateTooltip(map, layer, {object, x, y}) {
             .then((data) => {
                 //console.log(data);
                 tooltipHTML = `
-                        <p>${object.properties.bahnhof}<br>${
-                object.properties.datum_foto_1 || ""
-                }</p>
-                        <img src="${data.results[0].filename.url}" alt="${
-                object.properties.bahnhof
-                } - ${
-                object.properties.datum_foto_1
-                }" style="width: auto; height: 40vh;"/>
-                    `;
+                <p>${object.properties.bahnhof}<br>${
+                object.properties.datum_foto_1 || ""}</p>
+                <img src="${data.results[0].filename.url}" alt="${object.properties.bahnhof} - ${object.properties.datum_foto_1}" style="width: auto; height: 40vh;"/>`;
                 tooltip.innerHTML = tooltipHTML;
 
                 tooltip.style.display = "block";
-                let mapPosition = document
-                .querySelector("#map")
-                .getBoundingClientRect();
-                tooltip.style.left = `${
-                mapPosition.left + x - tooltip.offsetWidth
-                }px`;
+                let mapPosition = document.querySelector("#map").getBoundingClientRect();
+                tooltip.style.left = `${mapPosition.left + x - tooltip.offsetWidth}px`;
                 if (mapPosition.top + y < window.innerHeight / 2)
-                tooltip.style.top = `${mapPosition.top + y}px`;
+                    tooltip.style.top = `${mapPosition.top + y}px`;
                 else
-                tooltip.style.top = `${
-                    mapPosition.top + y - tooltip.offsetHeight
-                }px`;
-                document.body.addEventListener("mousemove", (event) => {
-                updateTooltip(null, { object: null, x: 0, y: 0 });
-                document.body.removeEventListener("mousemove");
-                });
+                    tooltip.style.top = `${mapPosition.top + y - tooltip.offsetHeight}px`;
+                document.body.addEventListener("mousemove", removeTooltip);
             });
             break;
         }
